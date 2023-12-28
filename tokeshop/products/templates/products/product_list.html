@@ -1,0 +1,57 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Daftar Baru</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Deskripsi</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Tampilan</th>
+                    <th scope="col">Hapus</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in object_list %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td><a href="{% url 'product_view' product.id %}"><button type="button" class="btn btn-outline-primary btn-sm">Tampilan</button></a></td>
+                    <td><a href="{% url 'product_delete' product.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Hapus</button></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There is no product, yet. But if you want, you can add from <a class="badge badge-info" href="{% url 'product_new' %}"><strong>here.</strong></a>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+
+    <h1>{{ judul }}</h1>
+    <h2>{{ subjudul }}</h2>
+
+    <ol>
+        {% for data in Kategori %}
+        <li>{{data.name}}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
